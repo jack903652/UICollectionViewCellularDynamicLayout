@@ -18,9 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UICollectionViewCellularLayout *layout =[[UICollectionViewCellularLayout alloc] init];
-    layout.radius = 20;
-    layout.gap =10;
+    UICollectionViewCellularLayout *layout =[[UICollectionViewCellularLayout alloc] initWithRadius:20 gap:10];
     _collectionView =[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.delegate =self;

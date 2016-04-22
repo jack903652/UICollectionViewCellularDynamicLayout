@@ -34,7 +34,7 @@
     
     //设置颜色
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
-    CGContextSetFillColorWithColor(context, [UIColor blueColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor orangeColor].CGColor);
     //开始一个起始路径
     CGContextBeginPath(context);
 

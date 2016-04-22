@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UICollectionViewCellularLayout : UICollectionViewLayout
-@property(nonatomic,assign)CGFloat gap;
-@property(nonatomic,assign)CGFloat radius;
+@property(nonatomic,assign,readonly)CGFloat gap;
+@property(nonatomic,assign,readonly)CGFloat radius;
+-(instancetype)initWithRadius:(CGFloat)radius gap:(CGFloat)gap;
 @end

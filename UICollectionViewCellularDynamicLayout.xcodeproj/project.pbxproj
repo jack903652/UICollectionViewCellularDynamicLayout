@@ -17,6 +17,7 @@
 		392145C21CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145C11CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.m */; };
 		392145D11CBF4B530031624E /* UICollectionViewCellularLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */; };
 		392145D41CBF69190031624E /* UICollectionViewCellularCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145D31CBF69190031624E /* UICollectionViewCellularCell.m */; };
+		39E923C91CCA1E7F0019FCE5 /* UICellularDynamicAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E923C81CCA1E7F0019FCE5 /* UICellularDynamicAnimator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewCellularLayout.m; sourceTree = "<group>"; };
 		392145D21CBF69190031624E /* UICollectionViewCellularCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewCellularCell.h; sourceTree = "<group>"; };
 		392145D31CBF69190031624E /* UICollectionViewCellularCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewCellularCell.m; sourceTree = "<group>"; };
+		39E923C71CCA1E7F0019FCE5 /* UICellularDynamicAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICellularDynamicAnimator.h; sourceTree = "<group>"; };
+		39E923C81CCA1E7F0019FCE5 /* UICellularDynamicAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICellularDynamicAnimator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,8 @@
 				392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */,
 				392145D21CBF69190031624E /* UICollectionViewCellularCell.h */,
 				392145D31CBF69190031624E /* UICollectionViewCellularCell.m */,
+				39E923C71CCA1E7F0019FCE5 /* UICellularDynamicAnimator.h */,
+				39E923C81CCA1E7F0019FCE5 /* UICellularDynamicAnimator.m */,
 				392145A51CBF44EA0031624E /* Main.storyboard */,
 				392145A81CBF44EA0031624E /* Assets.xcassets */,
 				392145AA1CBF44EA0031624E /* LaunchScreen.storyboard */,
@@ -282,6 +287,7 @@
 			files = (
 				392145D11CBF4B530031624E /* UICollectionViewCellularLayout.m in Sources */,
 				392145A41CBF44EA0031624E /* ViewController.m in Sources */,
+				39E923C91CCA1E7F0019FCE5 /* UICellularDynamicAnimator.m in Sources */,
 				392145A11CBF44EA0031624E /* AppDelegate.m in Sources */,
 				392145D41CBF69190031624E /* UICollectionViewCellularCell.m in Sources */,
 				3921459E1CBF44EA0031624E /* main.m in Sources */,
@@ -508,6 +514,7 @@
 				392145C81CBF44EB0031624E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		392145C91CBF44EB0031624E /* Build configuration list for PBXNativeTarget "UICollectionViewCellularDynamicLayoutTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +523,7 @@
 				392145CB1CBF44EB0031624E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		392145CC1CBF44EB0031624E /* Build configuration list for PBXNativeTarget "UICollectionViewCellularDynamicLayoutUITests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +532,7 @@
 				392145CE1CBF44EB0031624E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

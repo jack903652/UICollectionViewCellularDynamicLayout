@@ -9,6 +9,7 @@
 #import "UICollectionViewCellularLayout.h"
 @interface UICollectionViewCellularLayout()
 @property(nonatomic,strong)UIDynamicAnimator *dynamicAnimator;
+@property (nonatomic, assign) CGFloat latestDelta;
 @end
 @implementation UICollectionViewCellularLayout
 {
@@ -19,36 +20,60 @@
     CGFloat radiusY;
     CGFloat itemCenterXDistance;
     NSInteger column;
+    
 }
--(instancetype)init{
+
+-(instancetype)initWithRadius:(CGFloat)radius gap:(CGFloat)gap{
     self =[super init];
     if (self) {
-        
+        _radius =radius;
+        _gap =gap;
+//        width = CGRectGetWidth(self.collectionView.frame);
+        width =375;
+        gapX =self.gap*cos(M_PI/6);
+        gapY =self.gap;
+        radiusX =self.radius;
+        radiusY = self.radius*cos(M_PI/6);
+        itemCenterXDistance =radiusX+0.5*radiusX+gapX;
+        column = (width-2*radiusX-2*gapX)/itemCenterXDistance +1;
+        _dynamicAnimator =[[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
     }
     return self;
 }
+    
+    
 - (void)prepareLayout{
     [super prepareLayout];
-    width = CGRectGetWidth(self.collectionView.frame);
-    gapX =self.gap*cos(M_PI/6);
-    gapY =self.gap;
-    radiusX =self.radius;
-    radiusY = self.radius*cos(M_PI/6);
-    itemCenterXDistance =radiusX+0.5*radiusX+gapX;
-    column = (width-2*radiusX-2*gapX)/itemCenterXDistance +1;
-//    _dynamicAnimator =[[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
-//    CGSize contentSize = self.collectionViewContentSize;
-//    NSArray *items = [self layoutAttributesForElementsInRect:CGRectMake(0.0f, 0.0f, contentSize.width, contentSize.height)];
-//    if (self.dynamicAnimator.behaviors.count == 0) {
-//        [items enumerateObjectsUsingBlock:^(id<UIDynamicItem> obj, NSUInteger idx, BOOL *stop) {
-//            UIAttachmentBehavior *behaviour = [[UIAttachmentBehavior alloc] initWithItem:obj
-//                                                                        attachedToAnchor:[obj center]];
-//            behaviour.length = 0.0f;
-//            behaviour.damping = 0.5f;
-//            behaviour.frequency = 1.0f;
-//            [self.dynamicAnimator addBehavior:behaviour];
-//        }];
-//    }
+
+    CGRect visibleRect = CGRectInset((CGRect){.origin = self.collectionView.bounds.origin, .size = self.collectionView.frame.size}, -100, -100);
+    NSArray *items = [self layoutAttributesForElementsInRect:visibleRect];
+    //移除将要不在视图中的动态行为
+    [self.dynamicAnimator removeAllBehaviors];
+    CGPoint touchLocation = [self.collectionView.panGestureRecognizer locationInView:self.collectionView];
+    [items enumerateObjectsUsingBlock:^(UICollectionViewLayoutAttributes *item, NSUInteger idx, BOOL *stop) {
+        CGPoint center = item.center;
+        UIAttachmentBehavior *springBehaviour = [[UIAttachmentBehavior alloc] initWithItem:item attachedToAnchor:center];
+        
+        springBehaviour.length = 0.0f;
+        springBehaviour.damping = 0.8f;
+        springBehaviour.frequency = 1.0f;
+        
+        // If our touchLocation is not (0,0), we'll need to adjust our item's center "in flight"
+        if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
+            CGFloat yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y);
+            CGFloat xDistanceFromTouch = fabs(touchLocation.x - springBehaviour.anchorPoint.x);
+            CGFloat scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500.0f;
+            
+            if (self.latestDelta < 0) {
+                center.y += MAX(self.latestDelta, self.latestDelta*scrollResistance);
+            }
+            else {
+                center.y += MIN(self.latestDelta, self.latestDelta*scrollResistance);
+            }
+            item.center = center;
+        }
+        [self.dynamicAnimator addBehavior:springBehaviour];
+    }];
 }
 -(NSArray<NSIndexPath *> *)visiableIndexPathInRect:(CGRect )rect{
     CGFloat y =rect.origin.y;
@@ -75,10 +100,6 @@
     for (NSIndexPath *path in indexPaths) {
         [attributes addObject:[self layoutAttributesForItemAtIndexPath:path]];
     }
-//    for (NSInteger i = 0 ; i < [self.collectionView numberOfItemsInSection:0 ]; i++) {
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-//        [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
-//    }
     return attributes;
 }
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -87,7 +108,6 @@
     NSInteger itemRow = indexPath.item/column;
     attributes.center = CGPointMake(gapX+radiusX+itemColumn*itemCenterXDistance, gapY+radiusX+itemColumn%2*(radiusY+gapY/2)+(2*radiusY+gapY)*itemRow);
     attributes.size =CGSizeMake(2*radiusX, 2*radiusY);
-
     return attributes;
 }
 
@@ -97,38 +117,42 @@
     CGFloat height = gapY+radiusY*2+gapY+radiusY+gapY +(row-1)*(gapY+radiusY*2);
     return CGSizeMake(CGRectGetWidth(self.collectionView.frame), height);
 }
-//- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
-//    UIScrollView *scrollView = self.collectionView;
-//    
-//    CGFloat delta = newBounds.origin.y - scrollView.bounds.origin.y;
-//    
-//    CGPoint touchLocation = [self.collectionView.panGestureRecognizer locationInView:self.collectionView];
-//    
-//    [self.dynamicAnimator.behaviors enumerateObjectsUsingBlock:^(UIAttachmentBehavior *springBehaviour, NSUInteger idx, BOOL *stop) {
-//        
-//        CGFloat yDistanceFromTouch = fabsf(touchLocation.y - springBehaviour.anchorPoint.y);
-//        
-//        CGFloat xDistanceFromTouch = fabsf(touchLocation.x - springBehaviour.anchorPoint.x);
-//        
-//        CGFloat scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500.0f;
-//        
-//        UICollectionViewLayoutAttributes *item = springBehaviour.items.firstObject;
-//        
-//        CGPoint center = item.center;
-//        
-//        if (delta < 0) {
-//            
-//            center.y += MAX(delta, delta*scrollResistance);
-//        }
-//        else {
-//            
-//            center.y += MIN(delta, delta*scrollResistance);
-//        }
-//        
-//        item.center = center;
-//        
-//        [self.dynamicAnimator updateItemUsingCurrentState:item];
-//    }];
-//    return NO;
-//}
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
+    UIScrollView *scrollView = self.collectionView;
+    
+    CGFloat delta = newBounds.origin.y - scrollView.bounds.origin.y;
+    self.latestDelta =delta;
+    CGPoint touchLocation = [self.collectionView.panGestureRecognizer locationInView:self.collectionView];
+    
+    [self.dynamicAnimator.behaviors enumerateObjectsUsingBlock:^(UIAttachmentBehavior *springBehaviour, NSUInteger idx, BOOL *stop) {
+        
+        CGFloat yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y);
+        
+        CGFloat xDistanceFromTouch = fabs(touchLocation.x - springBehaviour.anchorPoint.x);
+        
+        CGFloat scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500.0f;
+        
+        UICollectionViewLayoutAttributes *item = (UICollectionViewLayoutAttributes *)springBehaviour.items.firstObject;
+        
+        CGPoint center = item.center;
+        
+        if (delta < 0) {
+            
+            center.y += MAX(delta, delta*scrollResistance);
+        }
+        else {
+            
+            center.y += MIN(delta, delta*scrollResistance);
+        }
+        
+        item.center = center;
+        
+        [self.dynamicAnimator updateItemUsingCurrentState:item];
+    }];
+    return NO;
+}
+- (void)prepareForAnimatedBoundsChange:(CGRect)oldBounds{
+    
+}
 @end
