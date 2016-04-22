@@ -15,6 +15,8 @@
 		392145AC1CBF44EA0031624E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 392145AA1CBF44EA0031624E /* LaunchScreen.storyboard */; };
 		392145B71CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145B61CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutTests.m */; };
 		392145C21CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145C11CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.m */; };
+		392145D11CBF4B530031624E /* UICollectionViewCellularLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */; };
+		392145D41CBF69190031624E /* UICollectionViewCellularCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392145D31CBF69190031624E /* UICollectionViewCellularCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		392145BD1CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UICollectionViewCellularDynamicLayoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		392145C11CBF44EB0031624E /* UICollectionViewCellularDynamicLayoutUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewCellularDynamicLayoutUITests.m; sourceTree = "<group>"; };
 		392145C31CBF44EB0031624E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		392145CF1CBF4B530031624E /* UICollectionViewCellularLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewCellularLayout.h; sourceTree = "<group>"; };
+		392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewCellularLayout.m; sourceTree = "<group>"; };
+		392145D21CBF69190031624E /* UICollectionViewCellularCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewCellularCell.h; sourceTree = "<group>"; };
+		392145D31CBF69190031624E /* UICollectionViewCellularCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewCellularCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,10 @@
 				392145A01CBF44EA0031624E /* AppDelegate.m */,
 				392145A21CBF44EA0031624E /* ViewController.h */,
 				392145A31CBF44EA0031624E /* ViewController.m */,
+				392145CF1CBF4B530031624E /* UICollectionViewCellularLayout.h */,
+				392145D01CBF4B530031624E /* UICollectionViewCellularLayout.m */,
+				392145D21CBF69190031624E /* UICollectionViewCellularCell.h */,
+				392145D31CBF69190031624E /* UICollectionViewCellularCell.m */,
 				392145A51CBF44EA0031624E /* Main.storyboard */,
 				392145A81CBF44EA0031624E /* Assets.xcassets */,
 				392145AA1CBF44EA0031624E /* LaunchScreen.storyboard */,
@@ -270,8 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				392145D11CBF4B530031624E /* UICollectionViewCellularLayout.m in Sources */,
 				392145A41CBF44EA0031624E /* ViewController.m in Sources */,
 				392145A11CBF44EA0031624E /* AppDelegate.m in Sources */,
+				392145D41CBF69190031624E /* UICollectionViewCellularCell.m in Sources */,
 				3921459E1CBF44EA0031624E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
